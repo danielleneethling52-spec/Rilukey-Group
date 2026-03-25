@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rilukey Group | Elite Stays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap');
+        
+        :root {
+            --brand-purple: #5b21b6;
+            --brand-orange: #f97316;
+            --brand-teal: #0d9488;
+        }
+
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0a0c; color: #fff; overflow-x: hidden; }
+        h1, h2, .logo-text { font-family: 'Syncopate', sans-serif; }
+
+        .premium-gradient {
+            background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-teal) 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border: 1px solid var(--brand-teal);
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-10px);
+        }
+
+        .orange-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.5; }
+
+        .modal-overlay { background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed w-full z-50 px-10 py-6 flex justify-between items-center transition-all duration-500" id="navbar">
+        <div class="flex items-center space-x-4 cursor-pointer" onclick="window.scrollTo(0,0)">
+            <div class="w-12 h-12 rounded-lg premium-gradient flex items-center justify-center font-bold text-2xl shadow-lg">R</div>
+            <span class="logo-text text-xl tracking-tighter font-bold uppercase">Rilukey Group</span>
+        </div>
+        <div class="hidden md:flex space-x-12 font-bold uppercase tracking-widest text-[10px]">
+            <a href="#home">Home</a>
+            <a href="#listings">Portfolios</a>
+            <a href="#blog">Insights</a>
+            <a href="#contact" class="text-orange-400">Book a Viewing</a>
+        </div>
+    </nav>
+
+    <section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" 
+             class="absolute inset-0 w-full h-full object-cover opacity-60 scale-110" id="hero-img">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0c]/40 to-[#0a0a0c]"></div>
+        
+        <div class="relative z-10 text-center px-6">
+            <h4 class="text-orange-400 font-bold uppercase tracking-[0.5em] mb-4 text-sm" data-aos="fade-up">Elite Property Group</h4>
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-12 tracking-tighter leading-tight" data-aos="fade-up" data-aos-delay="200">
+                The Cape <br> <span class="text-transparent border border-white px-4" style="-webkit-text-stroke: 1px white;">Reimagined</span>
+            </h1>
+            
+            <div class="glass-card p-2 rounded-2xl md:rounded-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-4" data-aos="zoom-in" data-aos-delay="400">
+                <div class="flex-1 w-full px-8 py-3 text-left border-r border-white/10">
+                    <label class="block text-[9px] uppercase font-black text-teal-400 mb-1">Location</label>
+                    <select id="area" class="bg-transparent w-full font-bold outline-none text-white cursor-pointer appearance-none">
+                        <option value="all" class="bg-black">All Destinations</option>
+                        <option value="clifton" class="bg-black">Clifton / Camps Bay</option>
+                        <option value="franschhoek" class="bg-black">Franschhoek</option>
+                        <option value="hermanus" class="bg-black">Hermanus Coast</option>
+                    </select>
+                </div>
+                <div class="flex-1 w-full px-8 py-3 text-left border-r border-white/10">
+                    <label class="block text-[9px] uppercase font-black text-teal-400 mb-1">Property</label>
+                    <select id="type" class="bg-transparent w-full font-bold outline-none text-white cursor-pointer appearance-none">
+                        <option value="all" class="bg-black">All Styles</option>
+                        <option value="villa" class="bg-black">Villa</option>
+                        <option value="penthouse" class="bg-black">Penthouse</option>
+                    </select>
+                </div>
+                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-12 py-5 rounded-full uppercase text-xs tracking-widest orange-glow transition-all">
+                    Discover Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="listings" class="py-32 px-10">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-bold uppercase mb-20" data-aos="fade-right">The Portfolio</h2>
+            <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                </div>
+        </div>
+    </section>
+
+    <section id="blog" class="py-32 bg-[#0d0d10]">
+        <div class="max-w-7xl mx-auto px-10">
+            <h2 class="text-4xl font-bold mb-20 text-center uppercase" data-aos="fade-up">Living the Brand</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <article class="glass-card rounded-[2rem] overflow-hidden flex flex-col group" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1505843513577-22bb7d21ef45?auto=format&fit=crop&w=1200&q=80" class="h-80 w-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="p-12">
+                        <span class="text-teal-400 text-xs font-bold uppercase tracking-widest">Heritage & Wine</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-6">Franschhoek's Secret Estates</h3>
+                        <p class="text-gray-400 leading-relaxed mb-8">Exploring the architectural heritage of the Franschhoek valley, where modern luxury meets the old-world charm of the Winelands...</p>
+                        <a href="#" class="text-orange-400 font-bold uppercase text-[10px] tracking-widest">Read Article →</a>
+                    </div>
+                </article>
+                <article class="glass-card rounded-[2rem] overflow-hidden flex flex-col group" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1512918766671-ad6507962077?auto=format&fit=crop&w=1200&q=80" class="h-80 w-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="p-12">
+                        <span class="text-teal-400 text-xs font-bold uppercase tracking-widest">Design Philosophy</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-6">The Atlantic Seaboard Peak</h3>
+                        <p class="text-gray-400 leading-relaxed mb-8">How Clifton's high-level villas are redefining the relationship between interior space and the horizon of the Atlantic Ocean...</p>
+                        <a href="#" class="text-orange-400 font-bold uppercase text-[10px] tracking-widest">Read Article →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="fixed inset-0 z-[100] hidden modal-overlay items-center justify-center p-6">
+        <div class="bg-[#0a0a0c] w-full max-w-6xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-white text-2xl hover:text-orange-400 z-10"><i class="fa fa-times"></i></button>
+            <img id="mImg" src="" class="md:w-1/2 object-cover min-h-[400px]">
+            <div class="p-12 md:w-1/2 flex flex-col justify-center">
+                <span id="mArea" class="text-orange-400 font-black uppercase text-xs tracking-widest"></span>
+                <h2 id="mTitle" class="text-4xl font-black uppercase mt-4 mb-6"></h2>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="date" class="bg-white/5 border border-white/10 p-4 rounded-xl text-xs outline-none focus:border-orange-400 text-white" placeholder="Check In">
+                        <input type="date" class="bg-white/5 border border-white/10 p-4 rounded-xl text-xs outline-none focus:border-orange-400 text-white" placeholder="Check Out">
+                    </div>
+                    <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-xs outline-none focus:border-orange-400 text-white">
+                </div>
+
+                <div class="flex items-center justify-between border-t border-white/10 pt-8">
+                    <div>
+                        <span id="mPrice" class="text-3xl font-black text-teal-400"></span>
+                        <p class="text-[9px] uppercase font-bold text-gray-500">Base Rate Per Night</p>
+                    </div>
+                    <button onclick="submitInquiry()" class="bg-white text-black font-black px-10 py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:bg-orange-400 transition">Check Availability</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="success" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center text-center p-6">
+        <div class="max-w-md">
+            <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                <i class="fa fa-paper-plane text-2xl text-white"></i>
+            </div>
+            <h2 class="text-3xl font-black uppercase mb-4">Request Sent</h2>
+            <p class="text-gray-400">Your Booking request will be seen to within 24 hours.</p>
+            <button onclick="location.reload()" class="mt-10 border border-white/20 px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-widest">Close</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // GUARANTEED IMAGE LINKS (High-Res Architectural)
+        const data = [
+            { id: 1, name: "Horizon One", area: "clifton", type: "villa", price: 35000, img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80" },
+            { id: 2, name: "The Zenith", area: "clifton", type: "penthouse", price: 18000, img: "https://images.unsplash.com/photo-1512918766671-ad6507962077?auto=format&fit=crop&w=1200&q=80" },
+            { id: 3, name: "La Provence", area: "franschhoek", type: "villa", price: 12500, img: "https://images.unsplash.com/photo-1505843513577-22bb7d21ef45?auto=format&fit=crop&w=1200&q=80" },
+            { id: 4, name: "Marine Cliff", area: "hermanus", type: "villa", price: 9200, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" },
+            { id: 5, name: "Vineyard Manor", area: "franschhoek", type: "villa", price: 21000, img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" },
+            { id: 6, name: "Blue Bay", area: "hermanus", type: "penthouse", price: 6800, img: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=80" }
+        ];
+
+        function render(items) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = items.map(p => `
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal(${p.id})">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500"></div>
+                        <div class="absolute top-8 left-8 bg-black/50 backdrop-blur px-5 py-2 rounded-full text-[9px] font-black uppercase tracking-widest text-teal-400">
+                            ${p.area}
+                        </div>
+                    </div>
+                    <div class="p-12">
+                        <h3 class="text-xl font-bold uppercase mb-8">${p.name}</h3>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-black text-white">R${p.price.toLocaleString()}</span>
+                            <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition">
+                                <i class="fa fa-arrow-right text-[10px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(id) {
+            const p = data.find(x => x.id === id);
+            document.getElementById('mImg').src = p.img;
+            document.getElementById('mTitle').innerText = p.name;
+            document.getElementById('mArea').innerText = p.area;
+            document.getElementById('mPrice').innerText = `R${p.price.toLocaleString()}`;
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function submitInquiry() {
+            document.getElementById('modal').classList.add('hidden');
+            document.getElementById('success').classList.remove('hidden');
+            document.getElementById('success').classList.add('flex');
+        }
+
+        function executeFilter() {
+            const areaValue = document.getElementById('area').value;
+            const typeValue = document.getElementById('type').value;
+            const filtered = data.filter(p => 
+                (areaValue === 'all' || p.area === areaValue) && 
+                (typeValue === 'all' || p.type === typeValue)
+            );
+            render(filtered);
+            document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const value = window.scrollY;
+            document.getElementById('hero-img').style.transform = `translateY(${value * 0.4}px)`;
+            document.getElementById('navbar').style.backgroundColor = value > 100 ? 'rgba(10, 10, 12, 0.95)' : 'transparent';
+        });
+
+        render(data);
+    </script>
+</body>
+</html>
