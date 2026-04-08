@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rilukey Group | Smart Capacity Engine</title>
+    <title>Rilukey Group | Curated Stays</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -17,38 +17,62 @@
         
         .room-card { border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; border-radius: 1.25rem; padding: 1.25rem; background: rgba(255,255,255,0.02); }
         .room-card.selected { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.08); }
-        .room-card.disabled { opacity: 0.5; cursor: not-allowed; border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); }
+        .room-card.disabled { opacity: 0.4; cursor: not-allowed; border-color: rgba(239, 68, 68, 0.2); }
         
         input, select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.8rem; width: 100%; }
+        input:focus { border-color: var(--brand-orange); outline: none; }
         .info-label { font-size: 0.65rem; font-weight: 900; color: #52525b; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.25rem; }
     </style>
 </head>
 <body>
 
-    <section id="home" class="relative h-[70vh] w-full flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40">
-        <div class="relative z-10 text-center px-6">
-            <h1 class="text-5xl md:text-7xl font-black uppercase mb-4 tracking-tighter" data-aos="fade-up">Rilukey Group</h1>
+    <nav class="fixed w-full z-50 px-10 py-6 flex justify-between items-center bg-black/40 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-lg premium-gradient flex items-center justify-center font-bold text-2xl shadow-lg">R</div>
+            <span class="logo-text text-xl tracking-tighter font-bold uppercase">Rilukey Group</span>
+        </div>
+    </nav>
+
+    <section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50 scale-105">
+        <div class="relative z-10 text-center px-6 w-full max-w-7xl">
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 tracking-tighter" data-aos="fade-up">Rilukey Group</h1>
             <p class="text-xl font-light uppercase tracking-[0.3em] mb-12">Curated Stays For Every Traveller</p>
             
-            <div class="glass-card p-6 rounded-3xl md:rounded-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-6">
+            <div class="glass-card p-6 rounded-3xl md:rounded-full flex flex-col md:flex-row items-center gap-4 shadow-2xl" data-aos="zoom-in">
                 <div class="flex-1 w-full text-left md:border-r border-white/10 px-4">
-                    <label class="info-label text-teal-400">Location</label>
-                    <select id="areaFilter" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
-                        <option value="all" class="bg-black">All Locations</option>
+                    <label class="info-label text-teal-400">Destination</label>
+                    <select id="heroArea" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
+                        <option value="all" class="bg-black">All Portfolios</option>
                         <option value="clifton" class="bg-black">Clifton</option>
                         <option value="franschhoek" class="bg-black">Franschhoek</option>
                     </select>
                 </div>
-                <div class="w-full md:w-32 text-left px-4">
-                    <label class="info-label text-teal-400">Adults</label>
-                    <input type="number" id="heroAdults" value="2" min="1" class="bg-transparent border-none p-0 text-xs font-bold">
+                <div class="flex-[1.5] w-full text-left md:border-r border-white/10 px-4">
+                    <label class="info-label text-teal-400">Stay Dates</label>
+                    <div class="flex gap-2">
+                        <input type="date" id="heroCheckIn" class="bg-transparent border-none p-0 text-[10px] font-bold">
+                        <span class="text-gray-600">to</span>
+                        <input type="date" id="heroCheckOut" class="bg-transparent border-none p-0 text-[10px] font-bold">
+                    </div>
                 </div>
-                <div class="w-full md:w-32 text-left px-4">
-                    <label class="info-label text-teal-400">Kids</label>
-                    <input type="number" id="heroKids" value="0" min="0" class="bg-transparent border-none p-0 text-xs font-bold">
+                <div class="flex-1 w-full text-left md:border-r border-white/10 px-4">
+                    <label class="info-label text-teal-400">Price Range</label>
+                    <select id="heroPrice" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
+                        <option value="999999" class="bg-black">Any Budget</option>
+                        <option value="15000" class="bg-black">Under R15,000</option>
+                        <option value="35000" class="bg-black">Under R35,000</option>
+                        <option value="70000" class="bg-black">Under R70,000</option>
+                    </select>
                 </div>
-                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-12 py-5 rounded-full uppercase text-[10px] tracking-widest transition-all">Check Portfolio</button>
+                <div class="w-full md:w-40 text-left px-4">
+                    <label class="info-label text-teal-400">Travelers</label>
+                    <div class="flex gap-2">
+                        <input type="number" id="heroAdults" value="2" min="1" class="bg-transparent border-none p-0 text-xs font-bold w-1/2">
+                        <input type="number" id="heroKids" value="0" min="0" class="bg-transparent border-none p-0 text-xs font-bold w-1/2">
+                    </div>
+                </div>
+                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-12 py-5 rounded-full uppercase text-[10px] tracking-widest transition-all">Check Availability</button>
             </div>
         </div>
     </section>
@@ -56,20 +80,31 @@
     <section id="listings" class="py-20 px-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12"></section>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="bg-[#0a0a0c] w-full max-w-7xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[92vh] border border-white/10">
+        <div class="bg-[#0a0a0c] w-full max-w-7xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[92vh] border border-white/10 shadow-2xl">
             <button onclick="closeModal()" class="absolute top-8 right-8 text-white z-50 hover:text-orange-400"><i class="fa fa-times text-2xl"></i></button>
             
-            <div class="md:w-5/12 overflow-hidden h-full">
+            <div class="md:w-5/12 h-full">
                 <img id="mImg" src="" class="w-full h-full object-cover">
             </div>
 
-            <div class="p-8 md:p-12 md:w-7/12 overflow-y-auto">
+            <div class="p-8 md:p-14 md:w-7/12 overflow-y-auto">
                 <h2 id="mTitle" class="text-4xl font-black uppercase mb-2"></h2>
-                <p id="mArea" class="text-orange-400 font-bold uppercase text-[10px] tracking-[0.4em] mb-10"></p>
+                <p id="mArea" class="text-orange-400 font-bold uppercase text-[10px] tracking-[0.4em] mb-8"></p>
 
-                <div id="capacityAlert" class="hidden mb-6 p-5 bg-red-500/10 border border-red-500/30 rounded-2xl">
-                    <p class="text-xs font-bold text-red-400 uppercase mb-2"><i class="fa fa-warning mr-2"></i> Capacity Notice</p>
-                    <p class="text-[10px] text-gray-300">Your group of <span id="alertGuestCount"></span> exceeds the capacity for certain suites. Please select a larger option or consider booking multiple rooms for a split-stay.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 pb-10 border-b border-white/5">
+                    <div>
+                        <span class="info-label text-teal-500 mb-4">AI Insight & Vibe</span>
+                        <div id="mAiDetails" class="space-y-4"></div>
+                    </div>
+                    <div>
+                        <span class="info-label text-teal-500 mb-4">The Portfolio Surroundings</span>
+                        <div id="mAttractions" class="space-y-2 text-xs text-gray-400"></div>
+                    </div>
+                </div>
+
+                <div id="capacityAlert" class="hidden mb-6 p-5 bg-red-500/10 border border-red-500/20 rounded-2xl">
+                    <p class="text-xs font-bold text-red-400 uppercase">Capacity Notice</p>
+                    <p class="text-[10px] text-gray-400">Your group of <span id="alertGuestCount"></span> is too large for certain suites. Consider split-booking.</p>
                 </div>
 
                 <div class="mb-10">
@@ -77,18 +112,23 @@
                     <div id="roomOptions" class="grid gap-4"></div>
                 </div>
 
-                <div class="glass-card p-8 rounded-3xl border border-white/10">
+                <div class="glass-card p-8 rounded-3xl border border-white/10 bg-white/[0.02]">
                     <h3 class="text-sm font-bold uppercase mb-6 text-orange-400">Step 2: Guest Information</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="space-y-1"><label class="info-label">Full Name</label><input type="text" id="bName"></div>
-                        <div class="space-y-1"><label class="info-label">WhatsApp Number</label><input type="tel" id="bCell"></div>
+                        <div class="space-y-1"><label class="info-label">Full Name & Surname</label><input type="text" id="bName" placeholder="e.g. John Doe"></div>
+                        <div class="space-y-1"><label class="info-label">Email Address</label><input type="email" id="bEmail" placeholder="your@email.com"></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="space-y-1"><label class="info-label">Cell / WhatsApp</label><input type="tel" id="bCell" placeholder="+27 ..."></div>
                         <div class="space-y-1"><label class="info-label">Adults</label><input type="number" id="bAdults" onchange="refreshCapacity()"></div>
                         <div class="space-y-1"><label class="info-label">Kids</label><input type="number" id="bKids" onchange="refreshCapacity()"></div>
-                        <div class="space-y-1" id="kidAgesWrap"><label class="info-label">Kids Ages</label><input type="text" id="bKidAges" placeholder="e.g. 5, 12"></div>
+                    </div>
+
+                    <div id="kidAgesWrap" class="mb-4 space-y-1 hidden">
+                        <label class="info-label">Ages of Children</label>
+                        <input type="text" id="bKidAges" placeholder="e.g. 5, 12">
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mb-8">
@@ -96,37 +136,44 @@
                         <div class="space-y-1"><label class="info-label">Check Out</label><input type="date" id="mCheckOut" onchange="calculateTotal()"></div>
                     </div>
                     
-                    <div class="flex justify-between items-center p-6 bg-white/5 rounded-2xl mb-8 border border-white/10">
-                        <span class="text-3xl font-black text-teal-400" id="mTotal">R0</span>
-                        <button onclick="submitBooking()" class="bg-orange-500 px-10 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest">Submit Request</button>
+                    <div class="flex justify-between items-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <span id="mTotal" class="text-3xl font-black text-white">R0</span>
+                        <button onclick="submitBooking()" class="bg-orange-500 hover:bg-orange-600 px-12 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-xl transition-all">Confirm Inquiry</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({ duration: 1000, once: true });
+
         const data = [
             { 
                 id: 1, name: "Horizon One", area: "clifton",
                 img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+                rules: [{l: "Vibe Score", v: "9.9 AI Elite"}, {l: "Check-In", v: "14:00 PM"}, {l: "Check-Out", v: "11:00 AM"}],
+                attractions: ["Clifton 4th Beach - 2min", "Camps Bay Strip - 5min"],
                 rooms: [
-                    {name: "Ocean Master Suite", price: 35000, capacity: 2, features: "King Bed, 180° View"},
-                    {name: "The Grand Villa Wing", price: 85000, capacity: 8, features: "4 Bedrooms, Private Staff"}
+                    {name: "Ocean Master Suite", price: 35000, capacity: 2, features: "King Bed, Balcony"},
+                    {name: "The Villa Wing", price: 75000, capacity: 6, features: "3 Bedrooms, Pool"}
                 ]
             },
             { 
                 id: 2, name: "La Provence", area: "franschhoek",
                 img: "https://images.unsplash.com/photo-1505843513577-22bb7d21ef45?auto=format&fit=crop&w=1200&q=80",
+                rules: [{l: "Heritage Score", v: "9.5 AI Luxury"}, {l: "Check-In", v: "15:00 PM"}, {l: "Check-Out", v: "10:00 AM"}],
+                attractions: ["Wine Tram Terminal", "Huguenot Memorial"],
                 rooms: [
                     {name: "Vineyard Cottage", price: 12500, capacity: 2, features: "Queen Bed, Patio"},
-                    {name: "The Manor House", price: 28000, capacity: 4, features: "2 Bedrooms, Pool Access"}
+                    {name: "The Manor", price: 28000, capacity: 4, features: "2 Bedrooms, Garden"}
                 ]
             }
         ];
 
         let selectedPrice = 0;
-        let activeProperty = null;
+        let activeProp = null;
 
         function render(items) {
             const grid = document.getElementById('listings');
@@ -134,7 +181,7 @@
                 <div class="glass-card rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal(${p.id})">
                     <img src="${p.img}" class="h-80 w-full object-cover">
                     <div class="p-10">
-                        <h3 class="text-2xl font-bold uppercase mb-2">${p.name}</h3>
+                        <h3 class="text-2xl font-bold uppercase mb-2 group-hover:text-orange-400 transition">${p.name}</h3>
                         <p class="text-orange-400 font-bold uppercase text-[10px] tracking-widest">${p.area}</p>
                     </div>
                 </div>
@@ -142,80 +189,73 @@
         }
 
         function openModal(id) {
-            activeProperty = data.find(x => x.id === id);
-            document.getElementById('mImg').src = activeProperty.img;
-            document.getElementById('mTitle').innerText = activeProperty.name;
-            document.getElementById('mArea').innerText = activeProperty.area;
+            activeProp = data.find(x => x.id === id);
+            document.getElementById('mTitle').innerText = activeProp.name;
+            document.getElementById('mArea').innerText = activeProp.area;
+            document.getElementById('mImg').src = activeProp.img;
+            
+            document.getElementById('mAiDetails').innerHTML = activeProp.rules.map(r => `<div><span class="text-[8px] font-black text-gray-600 uppercase">${r.l}</span><p class="text-xs font-bold">${r.v}</p></div>`).join('');
+            document.getElementById('mAttractions').innerHTML = activeProp.attractions.map(a => `<p>• ${a}</p>`).join('');
 
-            // Sync guest counts from search
+            // Sync from Hero
             document.getElementById('bAdults').value = document.getElementById('heroAdults').value;
             document.getElementById('bKids').value = document.getElementById('heroKids').value;
+            document.getElementById('mCheckIn').value = document.getElementById('heroCheckIn').value;
+            document.getElementById('mCheckOut').value = document.getElementById('heroCheckOut').value;
 
             refreshCapacity();
-
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('modal').classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
 
         function refreshCapacity() {
-            const adults = parseInt(document.getElementById('bAdults').value) || 0;
-            const kids = parseInt(document.getElementById('bKids').value) || 0;
-            const totalGuests = adults + kids;
-            
-            document.getElementById('alertGuestCount').innerText = totalGuests;
-            document.getElementById('kidAgesWrap').style.display = kids > 0 ? 'block' : 'none';
+            const total = parseInt(document.getElementById('bAdults').value || 0) + parseInt(document.getElementById('bKids').value || 0);
+            document.getElementById('kidAgesWrap').style.display = parseInt(document.getElementById('bKids').value) > 0 ? 'block' : 'none';
+            document.getElementById('alertGuestCount').innerText = total;
 
-            let showCapacityAlert = false;
-
-            document.getElementById('roomOptions').innerHTML = activeProperty.rooms.map((r, i) => {
-                const isOver = totalGuests > r.capacity;
-                if(isOver) showCapacityAlert = true;
-
+            let showA = false;
+            document.getElementById('roomOptions').innerHTML = activeProp.rooms.map((r, i) => {
+                const over = total > r.capacity;
+                if(over) showA = true;
                 return `
-                    <div class="room-card ${isOver ? 'disabled' : ''}" id="rc-${i}" onclick="${isOver ? `handleOverCapacity('${r.name}')` : `setRoom(${r.price}, 'rc-${i}')`}">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="font-bold text-sm uppercase">${r.name}</p>
-                                <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Capacity: ${r.capacity} Guests</p>
-                                ${isOver ? `<p class="text-[8px] text-red-500 font-bold mt-2 uppercase italic">Exceeds your guest count</p>` : `<p class="text-[8px] text-teal-500 font-bold mt-2 uppercase">${r.features}</p>`}
-                            </div>
+                    <div class="room-card ${over ? 'disabled' : ''}" id="rc-${i}" onclick="${over ? `alert('Capacity Exceeded')` : `setRoom(${r.price}, 'rc-${i}')`}">
+                        <div class="flex justify-between items-center">
+                            <div><p class="font-bold text-sm uppercase">${r.name}</p><p class="text-[9px] text-gray-500 uppercase">Max ${r.capacity} Guests | ${r.features}</p></div>
                             <p class="text-xl font-black">R${r.price.toLocaleString()}</p>
                         </div>
                     </div>
                 `;
             }).join('');
-
-            document.getElementById('capacityAlert').style.display = showCapacityAlert ? 'block' : 'none';
+            document.getElementById('capacityAlert').style.display = showA ? 'block' : 'none';
             calculateTotal();
-        }
-
-        function handleOverCapacity(roomName) {
-            alert(`The ${roomName} only sleeps its rated capacity. To accommodate your group of ${document.getElementById('alertGuestCount').innerText}, please choose a larger suite or submit a request for a split-stay (booking multiple suites).`);
         }
 
         function setRoom(price, id) {
             selectedPrice = price;
-            document.querySelectorAll('.room-card').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.room-card').forEach(e => e.classList.remove('selected'));
             document.getElementById(id).classList.add('selected');
             calculateTotal();
         }
 
         function calculateTotal() {
-            const start = new Date(document.getElementById('mCheckIn').value);
-            const end = new Date(document.getElementById('mCheckOut').value);
-            if(start && end && end > start && selectedPrice > 0) {
-                const nights = (end - start) / (1000 * 60 * 60 * 24);
+            const cin = new Date(document.getElementById('mCheckIn').value);
+            const cout = new Date(document.getElementById('mCheckOut').value);
+            if(cin && cout && cout > cin && selectedPrice > 0) {
+                const nights = (cout - cin) / 86400000;
                 document.getElementById('mTotal').innerText = "R" + (nights * selectedPrice).toLocaleString();
-            } else {
-                document.getElementById('mTotal').innerText = "R0";
-            }
+            } else document.getElementById('mTotal').innerText = "R0";
+        }
+
+        function executeFilter() {
+            const maxP = parseInt(document.getElementById('heroPrice').value);
+            const area = document.getElementById('heroArea').value;
+            render(data.filter(p => (area === 'all' || p.area === area) && p.rooms.some(r => r.price <= maxP)));
+            document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
         }
 
         function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
         
-        function executeFilter() { render(data); document.getElementById('listings').scrollIntoView({ behavior: 'smooth' }); }
-
         render(data);
     </script>
 </body>
