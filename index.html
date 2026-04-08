@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rilukey Group | Curated Stays</title>
+    <title>Rilukey Group | Smart Capacity Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -14,153 +14,127 @@
         h1, h2, .logo-text { font-family: 'Syncopate', sans-serif; }
         .premium-gradient { background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-teal) 100%); }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.4s ease; }
-        .room-card { border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; border-radius: 1rem; padding: 1rem; }
-        .room-card.selected { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.1); }
-        input, select, textarea { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.8rem; width: 100%; }
-        input:focus { border-color: var(--brand-orange); outline: none; }
+        
+        .room-card { border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; border-radius: 1.25rem; padding: 1.25rem; background: rgba(255,255,255,0.02); }
+        .room-card.selected { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.08); }
+        .room-card.disabled { opacity: 0.5; cursor: not-allowed; border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); }
+        
+        input, select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.8rem; width: 100%; }
+        .info-label { font-size: 0.65rem; font-weight: 900; color: #52525b; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.25rem; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed w-full z-50 px-10 py-6 flex justify-between items-center transition-all duration-500" id="navbar">
-        <div class="flex items-center space-x-4 cursor-pointer">
-            <div class="w-12 h-12 rounded-lg premium-gradient flex items-center justify-center font-bold text-2xl shadow-lg">R</div>
-            <span class="logo-text text-xl tracking-tighter font-bold uppercase">Rilukey Group</span>
-        </div>
-        <div class="hidden md:flex space-x-12 font-bold uppercase tracking-widest text-[10px]">
-            <a href="#home">Home</a>
-            <a href="#listings">Portfolios</a>
-            <a href="#contact" class="text-orange-400">Book a Viewing</a>
-        </div>
-    </nav>
-
-    <section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 scale-110">
+    <section id="home" class="relative h-[70vh] w-full flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40">
         <div class="relative z-10 text-center px-6">
-            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 tracking-tighter leading-tight" data-aos="fade-up">Rilukey Group</h1>
-            <p class="text-xl md:text-2xl font-light uppercase tracking-[0.3em] mb-12" data-aos="fade-up" data-aos-delay="200">Curated Stays For Every Traveller</p>
+            <h1 class="text-5xl md:text-7xl font-black uppercase mb-4 tracking-tighter" data-aos="fade-up">Rilukey Group</h1>
+            <p class="text-xl font-light uppercase tracking-[0.3em] mb-12">Curated Stays For Every Traveller</p>
             
-            <div class="glass-card p-4 rounded-3xl md:rounded-full max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-4" data-aos="zoom-in" data-aos-delay="400">
-                <div class="flex-1 w-full px-6 py-2 text-left border-r border-white/10">
-                    <label class="block text-[8px] uppercase font-black text-teal-400">Location</label>
-                    <select id="areaFilter" class="bg-transparent w-full font-bold outline-none text-white text-xs border-none p-0">
+            <div class="glass-card p-6 rounded-3xl md:rounded-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-1 w-full text-left md:border-r border-white/10 px-4">
+                    <label class="info-label text-teal-400">Location</label>
+                    <select id="areaFilter" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
                         <option value="all" class="bg-black">All Locations</option>
                         <option value="clifton" class="bg-black">Clifton</option>
                         <option value="franschhoek" class="bg-black">Franschhoek</option>
                     </select>
                 </div>
-                <div class="flex-1 w-full px-6 py-2 text-left border-r border-white/10">
-                    <label class="block text-[8px] uppercase font-black text-teal-400">Check-In / Check-Out</label>
-                    <div class="flex gap-2">
-                        <input type="date" id="heroCheckIn" class="bg-transparent text-[10px] border-none p-0">
-                        <input type="date" id="heroCheckOut" class="bg-transparent text-[10px] border-none p-0">
-                    </div>
+                <div class="w-full md:w-32 text-left px-4">
+                    <label class="info-label text-teal-400">Adults</label>
+                    <input type="number" id="heroAdults" value="2" min="1" class="bg-transparent border-none p-0 text-xs font-bold">
                 </div>
-                <div class="w-full md:w-48 px-6 py-2 text-left">
-                    <label class="block text-[8px] uppercase font-black text-teal-400">Guests</label>
-                    <input type="number" id="heroGuests" value="2" class="bg-transparent w-full font-bold outline-none text-xs border-none p-0">
+                <div class="w-full md:w-32 text-left px-4">
+                    <label class="info-label text-teal-400">Kids</label>
+                    <input type="number" id="heroKids" value="0" min="0" class="bg-transparent border-none p-0 text-xs font-bold">
                 </div>
-                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-10 py-4 rounded-full uppercase text-[10px] tracking-widest transition-all">Search Availability</button>
+                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-12 py-5 rounded-full uppercase text-[10px] tracking-widest transition-all">Check Portfolio</button>
             </div>
         </div>
     </section>
 
-    <section id="listings" class="py-32 px-10">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-6xl font-bold uppercase mb-20" data-aos="fade-right">The Portfolio</h2>
-            <div id="grid" class="grid grid-cols-1 md:grid-cols-2 gap-12"></div>
-        </div>
-    </section>
+    <section id="listings" class="py-20 px-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12"></section>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="bg-[#0a0a0c] w-full max-w-6xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[90vh] border border-white/10">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-white z-50"><i class="fa fa-times text-2xl"></i></button>
+        <div class="bg-[#0a0a0c] w-full max-w-7xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[92vh] border border-white/10">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-white z-50 hover:text-orange-400"><i class="fa fa-times text-2xl"></i></button>
             
-            <div class="md:w-1/2 overflow-hidden h-full">
+            <div class="md:w-5/12 overflow-hidden h-full">
                 <img id="mImg" src="" class="w-full h-full object-cover">
             </div>
 
-            <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
-                <div class="mb-8">
-                    <h2 id="mTitle" class="text-3xl font-black uppercase mb-2"></h2>
-                    <p id="mArea" class="text-orange-400 font-bold uppercase text-[10px] tracking-widest"></p>
+            <div class="p-8 md:p-12 md:w-7/12 overflow-y-auto">
+                <h2 id="mTitle" class="text-4xl font-black uppercase mb-2"></h2>
+                <p id="mArea" class="text-orange-400 font-bold uppercase text-[10px] tracking-[0.4em] mb-10"></p>
+
+                <div id="capacityAlert" class="hidden mb-6 p-5 bg-red-500/10 border border-red-500/30 rounded-2xl">
+                    <p class="text-xs font-bold text-red-400 uppercase mb-2"><i class="fa fa-warning mr-2"></i> Capacity Notice</p>
+                    <p class="text-[10px] text-gray-300">Your group of <span id="alertGuestCount"></span> exceeds the capacity for certain suites. Please select a larger option or consider booking multiple rooms for a split-stay.</p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-6 mb-8 text-[10px] border-y border-white/5 py-6">
-                    <div>
-                        <p class="font-black text-teal-400 uppercase mb-2">AI Rating & Rules</p>
-                        <p id="mAiInfo" class="text-gray-400"></p>
-                    </div>
-                    <div>
-                        <p class="font-black text-teal-400 uppercase mb-2">Nearby Gems</p>
-                        <p id="mAttractions" class="text-gray-400"></p>
-                    </div>
+                <div class="mb-10">
+                    <span class="info-label mb-4">Step 1: Select Your Suite</span>
+                    <div id="roomOptions" class="grid gap-4"></div>
                 </div>
 
-                <div id="roomOptions" class="space-y-3 mb-8"></div>
+                <div class="glass-card p-8 rounded-3xl border border-white/10">
+                    <h3 class="text-sm font-bold uppercase mb-6 text-orange-400">Step 2: Guest Information</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="space-y-1"><label class="info-label">Full Name</label><input type="text" id="bName"></div>
+                        <div class="space-y-1"><label class="info-label">WhatsApp Number</label><input type="tel" id="bCell"></div>
+                    </div>
 
-                <div class="glass-card p-6 rounded-2xl">
-                    <h3 class="text-xs font-bold uppercase mb-4 text-orange-400">Secure Your Stay</h3>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <input type="text" id="bName" placeholder="Full Name & Surname">
-                        <input type="tel" id="bCell" placeholder="Cell Number">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="space-y-1"><label class="info-label">Adults</label><input type="number" id="bAdults" onchange="refreshCapacity()"></div>
+                        <div class="space-y-1"><label class="info-label">Kids</label><input type="number" id="bKids" onchange="refreshCapacity()"></div>
+                        <div class="space-y-1" id="kidAgesWrap"><label class="info-label">Kids Ages</label><input type="text" id="bKidAges" placeholder="e.g. 5, 12"></div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <input type="email" id="bEmail" placeholder="Email Address">
-                        <input type="text" id="bKids" placeholder="Ages of Kids (if any)">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mb-6">
-                        <div class="space-y-1">
-                            <label class="text-[8px] uppercase text-gray-500">Check In</label>
-                            <input type="date" id="mCheckIn" onchange="calculateTotal()">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[8px] uppercase text-gray-500">Check Out</label>
-                            <input type="date" id="mCheckOut" onchange="calculateTotal()">
-                        </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="space-y-1"><label class="info-label">Check In</label><input type="date" id="mCheckIn" onchange="calculateTotal()"></div>
+                        <div class="space-y-1"><label class="info-label">Check Out</label><input type="date" id="mCheckOut" onchange="calculateTotal()"></div>
                     </div>
                     
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl mb-6">
-                        <span class="text-[10px] font-bold uppercase">Estimated Total:</span>
-                        <span id="mTotal" class="text-xl font-black text-teal-400">R0</span>
+                    <div class="flex justify-between items-center p-6 bg-white/5 rounded-2xl mb-8 border border-white/10">
+                        <span class="text-3xl font-black text-teal-400" id="mTotal">R0</span>
+                        <button onclick="submitBooking()" class="bg-orange-500 px-10 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest">Submit Request</button>
                     </div>
-
-                    <button onclick="submitBooking()" class="bg-orange-500 w-full py-4 rounded-xl font-black uppercase text-[10px] tracking-widest">Submit Booking Request</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-
         const data = [
             { 
-                id: 1, name: "Horizon One", area: "clifton", price: 35000, 
+                id: 1, name: "Horizon One", area: "clifton",
                 img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
-                ai: "9.9/10 Rating. Check-in: 2PM. Check-out: 11AM. Amenities: Private Chef, Cinema, Heated Infinity Pool.",
-                attractions: "Clifton 4th Beach (2min walk), Table Mountain Cableway (10min), Camps Bay Strip.",
-                rooms: [{name: "Ocean Master Wing", price: 35000}, {name: "Guest Suite", price: 18000}]
+                rooms: [
+                    {name: "Ocean Master Suite", price: 35000, capacity: 2, features: "King Bed, 180° View"},
+                    {name: "The Grand Villa Wing", price: 85000, capacity: 8, features: "4 Bedrooms, Private Staff"}
+                ]
             },
             { 
-                id: 2, name: "La Provence", area: "franschhoek", price: 12500, 
+                id: 2, name: "La Provence", area: "franschhoek",
                 img: "https://images.unsplash.com/photo-1505843513577-22bb7d21ef45?auto=format&fit=crop&w=1200&q=80",
-                ai: "9.5/10 Rating. Check-in: 3PM. Check-out: 10AM. Amenities: Vineyard Access, Spa, Fireplace, Wine Cellar.",
-                attractions: "Franschhoek Wine Tram (5min), Huguenot Memorial, Boschendal Estate.",
-                rooms: [{name: "Vineyard Manor", price: 12500}, {name: "The Loft", price: 8500}]
+                rooms: [
+                    {name: "Vineyard Cottage", price: 12500, capacity: 2, features: "Queen Bed, Patio"},
+                    {name: "The Manor House", price: 28000, capacity: 4, features: "2 Bedrooms, Pool Access"}
+                ]
             }
         ];
 
         let selectedPrice = 0;
+        let activeProperty = null;
 
         function render(items) {
-            const grid = document.getElementById('grid');
+            const grid = document.getElementById('listings');
             grid.innerHTML = items.map(p => `
                 <div class="glass-card rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal(${p.id})">
                     <img src="${p.img}" class="h-80 w-full object-cover">
                     <div class="p-10">
-                        <h3 class="text-2xl font-bold uppercase mb-4">${p.name}</h3>
+                        <h3 class="text-2xl font-bold uppercase mb-2">${p.name}</h3>
                         <p class="text-orange-400 font-bold uppercase text-[10px] tracking-widest">${p.area}</p>
                     </div>
                 </div>
@@ -168,30 +142,56 @@
         }
 
         function openModal(id) {
-            const p = data.find(x => x.id === id);
-            document.getElementById('mImg').src = p.img;
-            document.getElementById('mTitle').innerText = p.name;
-            document.getElementById('mArea').innerText = p.area;
-            document.getElementById('mAiInfo').innerText = p.ai;
-            document.getElementById('mAttractions').innerText = p.attractions;
+            activeProperty = data.find(x => x.id === id);
+            document.getElementById('mImg').src = activeProperty.img;
+            document.getElementById('mTitle').innerText = activeProperty.name;
+            document.getElementById('mArea').innerText = activeProperty.area;
 
-            // Carry over hero dates if set
-            document.getElementById('mCheckIn').value = document.getElementById('heroCheckIn').value;
-            document.getElementById('mCheckOut').value = document.getElementById('heroCheckOut').value;
+            // Sync guest counts from search
+            document.getElementById('bAdults').value = document.getElementById('heroAdults').value;
+            document.getElementById('bKids').value = document.getElementById('heroKids').value;
 
-            document.getElementById('roomOptions').innerHTML = p.rooms.map((r, i) => `
-                <div class="room-card" id="rc-${i}" onclick="setRoom(${r.price}, 'rc-${i}')">
-                    <div class="flex justify-between font-bold text-xs">
-                        <span>${r.name}</span>
-                        <span>R${r.price.toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
+            refreshCapacity();
 
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('modal').classList.add('flex');
             document.body.style.overflow = 'hidden';
+        }
+
+        function refreshCapacity() {
+            const adults = parseInt(document.getElementById('bAdults').value) || 0;
+            const kids = parseInt(document.getElementById('bKids').value) || 0;
+            const totalGuests = adults + kids;
+            
+            document.getElementById('alertGuestCount').innerText = totalGuests;
+            document.getElementById('kidAgesWrap').style.display = kids > 0 ? 'block' : 'none';
+
+            let showCapacityAlert = false;
+
+            document.getElementById('roomOptions').innerHTML = activeProperty.rooms.map((r, i) => {
+                const isOver = totalGuests > r.capacity;
+                if(isOver) showCapacityAlert = true;
+
+                return `
+                    <div class="room-card ${isOver ? 'disabled' : ''}" id="rc-${i}" onclick="${isOver ? `handleOverCapacity('${r.name}')` : `setRoom(${r.price}, 'rc-${i}')`}">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-bold text-sm uppercase">${r.name}</p>
+                                <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Capacity: ${r.capacity} Guests</p>
+                                ${isOver ? `<p class="text-[8px] text-red-500 font-bold mt-2 uppercase italic">Exceeds your guest count</p>` : `<p class="text-[8px] text-teal-500 font-bold mt-2 uppercase">${r.features}</p>`}
+                            </div>
+                            <p class="text-xl font-black">R${r.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('capacityAlert').style.display = showCapacityAlert ? 'block' : 'none';
             calculateTotal();
+        }
+
+        function handleOverCapacity(roomName) {
+            alert(`The ${roomName} only sleeps its rated capacity. To accommodate your group of ${document.getElementById('alertGuestCount').innerText}, please choose a larger suite or submit a request for a split-stay (booking multiple suites).`);
         }
 
         function setRoom(price, id) {
@@ -213,19 +213,8 @@
         }
 
         function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
-
-        function executeFilter() {
-            const area = document.getElementById('areaFilter').value;
-            render(area === 'all' ? data : data.filter(p => p.area === area));
-            document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function submitBooking() {
-            const name = document.getElementById('bName').value;
-            if(!name) { alert("Please complete your booking details."); return; }
-            alert(`Thank you ${name}. Rilukey Group concierge will contact you to finalize the total: ${document.getElementById('mTotal').innerText}`);
-            closeModal();
-        }
+        
+        function executeFilter() { render(data); document.getElementById('listings').scrollIntoView({ behavior: 'smooth' }); }
 
         render(data);
     </script>
