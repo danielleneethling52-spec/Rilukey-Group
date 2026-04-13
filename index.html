@@ -13,132 +13,149 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0a0c; color: #fff; overflow-x: hidden; }
         h1, h2, .logo-text { font-family: 'Syncopate', sans-serif; }
         .premium-gradient { background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-teal) 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.4s ease; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        /* Modern Date Inputs */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
         
         .room-card { border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; border-radius: 1.25rem; padding: 1.25rem; background: rgba(255,255,255,0.02); }
         .room-card.selected { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.08); }
-        .room-card.disabled { opacity: 0.4; cursor: not-allowed; border-color: rgba(239, 68, 68, 0.2); }
+        .room-card.disabled { opacity: 0.4; cursor: not-allowed; }
         
-        input, select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.8rem; width: 100%; }
-        input:focus { border-color: var(--brand-orange); outline: none; }
-        .info-label { font-size: 0.65rem; font-weight: 900; color: #52525b; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.25rem; }
+        input, select { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem; border-radius: 0.75rem; width: 100%; transition: 0.3s; }
+        input:focus { border-color: var(--brand-orange); outline: none; background: rgba(255,255,255,0.15); }
+        .info-label { font-size: 0.65rem; font-weight: 900; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.25rem; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed w-full z-50 px-10 py-6 flex justify-between items-center bg-black/40 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-black/60 backdrop-blur-xl border-b border-white/5">
         <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-lg premium-gradient flex items-center justify-center font-bold text-2xl shadow-lg">R</div>
-            <span class="logo-text text-xl tracking-tighter font-bold uppercase">Rilukey Group</span>
+            <div class="w-10 h-10 rounded-lg premium-gradient flex items-center justify-center font-bold text-xl shadow-lg">R</div>
+            <span class="logo-text text-lg tracking-tighter font-bold uppercase hidden md:block">Rilukey Group</span>
+        </div>
+        <div class="flex gap-8 items-center">
+            <a href="#listings" class="text-[10px] font-bold uppercase tracking-widest hover:text-orange-400 transition">Portfolios</a>
+            <a href="mailto:stay@rilukey.com" class="bg-white/10 hover:bg-orange-500 px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all">Contact Us</a>
         </div>
     </nav>
 
-    <section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50 scale-105">
+    <section id="home" class="relative min-h-screen w-full flex items-center justify-center pt-24 pb-12">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40">
         <div class="relative z-10 text-center px-6 w-full max-w-7xl">
-            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 tracking-tighter" data-aos="fade-up">Rilukey Group</h1>
-            <p class="text-xl font-light uppercase tracking-[0.3em] mb-12">Curated Stays For Every Traveller</p>
+            <h1 class="text-4xl md:text-6xl font-black uppercase mb-12 tracking-tighter" data-aos="fade-up">
+                Curated Stays For Every Traveler
+            </h1>
             
-            <div class="glass-card p-6 rounded-3xl md:rounded-full flex flex-col md:flex-row items-center gap-4 shadow-2xl" data-aos="zoom-in">
-                <div class="flex-1 w-full text-left md:border-r border-white/10 px-4">
-                    <label class="info-label text-teal-400">Destination</label>
-                    <select id="heroArea" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
-                        <option value="all" class="bg-black">All Portfolios</option>
-                        <option value="clifton" class="bg-black">Clifton</option>
-                        <option value="franschhoek" class="bg-black">Franschhoek</option>
+            <div class="glass-card p-4 md:p-2 rounded-3xl md:rounded-full grid grid-cols-1 md:grid-cols-5 gap-2 shadow-2xl items-center" data-aos="zoom-in">
+                <div class="px-4 text-left">
+                    <label class="info-label text-orange-400">Where to?</label>
+                    <select id="heroArea" class="bg-transparent border-none p-0 text-sm font-bold uppercase focus:ring-0 cursor-pointer">
+                        <option value="all" class="bg-zinc-900">All Destinations</option>
+                        <option value="clifton" class="bg-zinc-900">Clifton</option>
+                        <option value="franschhoek" class="bg-zinc-900">Franschhoek</option>
                     </select>
                 </div>
-                <div class="flex-[1.5] w-full text-left md:border-r border-white/10 px-4">
-                    <label class="info-label text-teal-400">Stay Dates</label>
-                    <div class="flex gap-2">
-                        <input type="date" id="heroCheckIn" class="bg-transparent border-none p-0 text-[10px] font-bold">
-                        <span class="text-gray-600">to</span>
-                        <input type="date" id="heroCheckOut" class="bg-transparent border-none p-0 text-[10px] font-bold">
+                
+                <div class="px-4 text-left md:border-l border-white/10">
+                    <label class="info-label text-orange-400">Check In</label>
+                    <input type="date" id="heroCheckIn" class="bg-transparent border-none p-0 text-sm font-bold cursor-pointer">
+                </div>
+
+                <div class="px-4 text-left md:border-l border-white/10">
+                    <label class="info-label text-orange-400">Check Out</label>
+                    <input type="date" id="heroCheckOut" class="bg-transparent border-none p-0 text-sm font-bold cursor-pointer">
+                </div>
+
+                <div class="px-4 text-left md:border-l border-white/10 flex gap-4">
+                    <div class="w-1/2">
+                        <label class="info-label text-orange-400">Adults</label>
+                        <input type="number" id="heroAdults" value="2" min="1" class="bg-transparent border-none p-0 text-sm font-bold">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="info-label text-orange-400">Children</label>
+                        <input type="number" id="heroKids" value="0" min="0" class="bg-transparent border-none p-0 text-sm font-bold">
                     </div>
                 </div>
-                <div class="flex-1 w-full text-left md:border-r border-white/10 px-4">
-                    <label class="info-label text-teal-400">Price Range</label>
-                    <select id="heroPrice" class="bg-transparent border-none p-0 text-xs font-bold uppercase">
-                        <option value="999999" class="bg-black">Any Budget</option>
-                        <option value="15000" class="bg-black">Under R15,000</option>
-                        <option value="35000" class="bg-black">Under R35,000</option>
-                        <option value="70000" class="bg-black">Under R70,000</option>
-                    </select>
-                </div>
-                <div class="w-full md:w-40 text-left px-4">
-                    <label class="info-label text-teal-400">Travelers</label>
-                    <div class="flex gap-2">
-                        <input type="number" id="heroAdults" value="2" min="1" class="bg-transparent border-none p-0 text-xs font-bold w-1/2">
-                        <input type="number" id="heroKids" value="0" min="0" class="bg-transparent border-none p-0 text-xs font-bold w-1/2">
-                    </div>
-                </div>
-                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black px-12 py-5 rounded-full uppercase text-[10px] tracking-widest transition-all">Check Availability</button>
+
+                <button onclick="executeFilter()" class="bg-orange-500 hover:bg-orange-600 text-white font-black h-14 md:h-full rounded-2xl md:rounded-full uppercase text-xs tracking-widest transition-all">Search</button>
             </div>
         </div>
     </section>
 
-    <section id="listings" class="py-20 px-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12"></section>
+    <section id="listings" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-bold uppercase tracking-tighter">Our Portfolios</h2>
+                <p class="text-gray-500 text-sm mt-2">Private self-catering villas & apartments</p>
+            </div>
+        </div>
+        <div id="listingGrid" class="grid grid-cols-1 md:grid-cols-2 gap-10"></div>
+    </section>
+
+    <footer class="bg-zinc-900/50 border-t border-white/5 py-20 px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg premium-gradient flex items-center justify-center font-bold text-xl">R</div>
+                    <span class="logo-text text-lg font-bold uppercase">Rilukey Group</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Redefining luxury through curated, private self-catering experiences in South Africa's most prestigious locations.</p>
+            </div>
+            <div>
+                <h4 class="text-orange-400 font-bold uppercase text-[10px] tracking-widest mb-6">Contact Us</h4>
+                <ul class="text-sm space-y-4 text-gray-300">
+                    <li><i class="fa fa-envelope mr-3 text-orange-500"></i> stay@rilukey.com</li>
+                    <li><i class="fa fa-phone mr-3 text-orange-500"></i> +27 (0) 21 123 4567</li>
+                    <li><i class="fa fa-location-dot mr-3 text-orange-500"></i> Clifton & Franschhoek</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-orange-400 font-bold uppercase text-[10px] tracking-widest mb-6">Inquiries</h4>
+                <p class="text-xs text-gray-500 mb-4">Monday – Friday: 08:00 – 17:00<br>Weekends: 09:00 – 13:00</p>
+                <div class="flex gap-4">
+                    <i class="fa-brands fa-instagram text-xl hover:text-orange-400 cursor-pointer transition"></i>
+                    <i class="fa-brands fa-whatsapp text-xl hover:text-orange-400 cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="bg-[#0a0a0c] w-full max-w-7xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[92vh] border border-white/10 shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-white z-50 hover:text-orange-400"><i class="fa fa-times text-2xl"></i></button>
-            
-            <div class="md:w-5/12 h-full">
+        <div class="bg-[#0a0a0c] w-full max-w-6xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row relative max-h-[92vh] border border-white/10 shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-white z-50 hover:text-orange-400 transition-transform hover:scale-110"><i class="fa fa-times text-2xl"></i></button>
+            <div class="md:w-5/12 h-64 md:h-auto overflow-hidden">
                 <img id="mImg" src="" class="w-full h-full object-cover">
             </div>
-
-            <div class="p-8 md:p-14 md:w-7/12 overflow-y-auto">
-                <h2 id="mTitle" class="text-4xl font-black uppercase mb-2"></h2>
-                <p id="mArea" class="text-orange-400 font-bold uppercase text-[10px] tracking-[0.4em] mb-8"></p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 pb-10 border-b border-white/5">
+            <div class="p-8 md:p-12 md:w-7/12 overflow-y-auto">
+                <h2 id="mTitle" class="text-3xl font-black uppercase mb-2"></h2>
+                <div id="mSpecs" class="flex gap-4 text-[10px] font-bold uppercase text-orange-400 tracking-widest mb-8 pb-4 border-b border-white/5"></div>
+                
+                <div class="grid grid-cols-2 gap-8 mb-10">
                     <div>
-                        <span class="info-label text-teal-500 mb-4">AI Insight & Vibe</span>
-                        <div id="mAiDetails" class="space-y-4"></div>
+                        <span class="info-label text-teal-500 mb-3">AI Insight</span>
+                        <div id="mAiDetails" class="space-y-3"></div>
                     </div>
                     <div>
-                        <span class="info-label text-teal-500 mb-4">The Portfolio Surroundings</span>
-                        <div id="mAttractions" class="space-y-2 text-xs text-gray-400"></div>
+                        <span class="info-label text-teal-500 mb-3">Surroundings</span>
+                        <div id="mAttractions" class="space-y-1 text-[11px] text-gray-400"></div>
                     </div>
                 </div>
 
-                <div id="capacityAlert" class="hidden mb-6 p-5 bg-red-500/10 border border-red-500/20 rounded-2xl">
-                    <p class="text-xs font-bold text-red-400 uppercase">Capacity Notice</p>
-                    <p class="text-[10px] text-gray-400">Your group of <span id="alertGuestCount"></span> is too large for certain suites. Consider split-booking.</p>
-                </div>
+                <div id="roomOptions" class="grid gap-3 mb-8"></div>
 
-                <div class="mb-10">
-                    <span class="info-label mb-4">Step 1: Select Your Suite</span>
-                    <div id="roomOptions" class="grid gap-4"></div>
-                </div>
-
-                <div class="glass-card p-8 rounded-3xl border border-white/10 bg-white/[0.02]">
-                    <h3 class="text-sm font-bold uppercase mb-6 text-orange-400">Step 2: Guest Information</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="space-y-1"><label class="info-label">Full Name & Surname</label><input type="text" id="bName" placeholder="e.g. John Doe"></div>
-                        <div class="space-y-1"><label class="info-label">Email Address</label><input type="email" id="bEmail" placeholder="your@email.com"></div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <input type="text" id="bName" placeholder="Full Name">
+                        <input type="email" id="bEmail" placeholder="Email Address">
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="space-y-1"><label class="info-label">Cell / WhatsApp</label><input type="tel" id="bCell" placeholder="+27 ..."></div>
-                        <div class="space-y-1"><label class="info-label">Adults</label><input type="number" id="bAdults" onchange="refreshCapacity()"></div>
-                        <div class="space-y-1"><label class="info-label">Kids</label><input type="number" id="bKids" onchange="refreshCapacity()"></div>
-                    </div>
-
-                    <div id="kidAgesWrap" class="mb-4 space-y-1 hidden">
-                        <label class="info-label">Ages of Children</label>
-                        <input type="text" id="bKidAges" placeholder="e.g. 5, 12">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div class="space-y-1"><label class="info-label">Check In</label><input type="date" id="mCheckIn" onchange="calculateTotal()"></div>
-                        <div class="space-y-1"><label class="info-label">Check Out</label><input type="date" id="mCheckOut" onchange="calculateTotal()"></div>
-                    </div>
-                    
-                    <div class="flex justify-between items-center p-6 bg-white/5 rounded-2xl border border-white/10">
-                        <span id="mTotal" class="text-3xl font-black text-white">R0</span>
-                        <button onclick="submitBooking()" class="bg-orange-500 hover:bg-orange-600 px-12 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-xl transition-all">Confirm Inquiry</button>
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10">
+                        <span id="mTotal" class="text-2xl font-black text-white">R0</span>
+                        <button onclick="submitBooking()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-lg font-black uppercase text-[10px] tracking-widest transition-all">Request Stay</button>
                     </div>
                 </div>
             </div>
@@ -147,27 +164,27 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 800, once: true });
 
         const data = [
             { 
                 id: 1, name: "Horizon One", area: "clifton",
                 img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
-                rules: [{l: "Vibe Score", v: "9.9 AI Elite"}, {l: "Check-In", v: "14:00 PM"}, {l: "Check-Out", v: "11:00 AM"}],
+                beds: 4, baths: 4, maxGuests: 8,
+                rules: [{l: "Vibe Score", v: "9.9 AI Elite"}, {l: "Check-In", v: "14:00 PM"}],
                 attractions: ["Clifton 4th Beach - 2min", "Camps Bay Strip - 5min"],
                 rooms: [
-                    {name: "Ocean Master Suite", price: 35000, capacity: 2, features: "King Bed, Balcony"},
-                    {name: "The Villa Wing", price: 75000, capacity: 6, features: "3 Bedrooms, Pool"}
+                    {name: "Full Villa Access", price: 85000, capacity: 8, features: "4 Bedrooms, Private Pool"}
                 ]
             },
             { 
                 id: 2, name: "La Provence", area: "franschhoek",
                 img: "https://images.unsplash.com/photo-1505843513577-22bb7d21ef45?auto=format&fit=crop&w=1200&q=80",
-                rules: [{l: "Heritage Score", v: "9.5 AI Luxury"}, {l: "Check-In", v: "15:00 PM"}, {l: "Check-Out", v: "10:00 AM"}],
+                beds: 2, baths: 2, maxGuests: 4,
+                rules: [{l: "Heritage Score", v: "9.5 AI Luxury"}, {l: "Check-In", v: "15:00 PM"}],
                 attractions: ["Wine Tram Terminal", "Huguenot Memorial"],
                 rooms: [
-                    {name: "Vineyard Cottage", price: 12500, capacity: 2, features: "Queen Bed, Patio"},
-                    {name: "The Manor", price: 28000, capacity: 4, features: "2 Bedrooms, Garden"}
+                    {name: "The Manor House", price: 28000, capacity: 4, features: "2 Bedrooms, Estate View"}
                 ]
             }
         ];
@@ -176,13 +193,42 @@
         let activeProp = null;
 
         function render(items) {
-            const grid = document.getElementById('listings');
+            const grid = document.getElementById('listingGrid');
             grid.innerHTML = items.map(p => `
-                <div class="glass-card rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal(${p.id})">
-                    <img src="${p.img}" class="h-80 w-full object-cover">
-                    <div class="p-10">
-                        <h3 class="text-2xl font-bold uppercase mb-2 group-hover:text-orange-400 transition">${p.name}</h3>
-                        <p class="text-orange-400 font-bold uppercase text-[10px] tracking-widest">${p.area}</p>
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group border border-white/5 flex flex-col h-full" data-aos="fade-up">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="${p.img}" class="h-full w-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-4 py-1 rounded-full border border-white/10">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-orange-400">${p.area}</p>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold uppercase">${p.name}</h3>
+                            <div class="text-right">
+                                <p class="text-[10px] text-gray-500 uppercase font-black">Starting from</p>
+                                <p class="text-xl font-black text-white">R${p.rooms[0].price.toLocaleString()}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-6 mb-8 py-4 border-y border-white/5">
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-bed text-orange-500 text-xs"></i>
+                                <span class="text-xs font-bold">${p.beds} <span class="text-gray-500 font-normal">Beds</span></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-bath text-orange-500 text-xs"></i>
+                                <span class="text-xs font-bold">${p.baths} <span class="text-gray-500 font-normal">Baths</span></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-users text-orange-500 text-xs"></i>
+                                <span class="text-xs font-bold">${p.maxGuests} <span class="text-gray-500 font-normal">Occupancy</span></span>
+                            </div>
+                        </div>
+
+                        <button onclick="openModal(${p.id})" class="mt-auto w-full bg-white/5 hover:bg-orange-500 border border-white/10 hover:border-orange-500 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+                            View Property Details
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -191,44 +237,29 @@
         function openModal(id) {
             activeProp = data.find(x => x.id === id);
             document.getElementById('mTitle').innerText = activeProp.name;
-            document.getElementById('mArea').innerText = activeProp.area;
             document.getElementById('mImg').src = activeProp.img;
+            document.getElementById('mSpecs').innerHTML = `
+                <span>${activeProp.beds} Bedrooms</span> | 
+                <span>${activeProp.baths} Bathrooms</span> | 
+                <span>Max ${activeProp.maxGuests} Guests</span>
+            `;
             
             document.getElementById('mAiDetails').innerHTML = activeProp.rules.map(r => `<div><span class="text-[8px] font-black text-gray-600 uppercase">${r.l}</span><p class="text-xs font-bold">${r.v}</p></div>`).join('');
             document.getElementById('mAttractions').innerHTML = activeProp.attractions.map(a => `<p>• ${a}</p>`).join('');
 
-            // Sync from Hero
-            document.getElementById('bAdults').value = document.getElementById('heroAdults').value;
-            document.getElementById('bKids').value = document.getElementById('heroKids').value;
-            document.getElementById('mCheckIn').value = document.getElementById('heroCheckIn').value;
-            document.getElementById('mCheckOut').value = document.getElementById('heroCheckOut').value;
+            // Prep-populate suite options
+            document.getElementById('roomOptions').innerHTML = activeProp.rooms.map((r, i) => `
+                <div class="room-card" id="rc-${i}" onclick="setRoom(${r.price}, 'rc-${i}')">
+                    <div class="flex justify-between items-center">
+                        <div><p class="font-bold text-xs uppercase">${r.name}</p><p class="text-[9px] text-gray-500 uppercase">${r.features}</p></div>
+                        <p class="text-lg font-black italic">R${r.price.toLocaleString()}</p>
+                    </div>
+                </div>
+            `).join('');
 
-            refreshCapacity();
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('modal').classList.add('flex');
             document.body.style.overflow = 'hidden';
-        }
-
-        function refreshCapacity() {
-            const total = parseInt(document.getElementById('bAdults').value || 0) + parseInt(document.getElementById('bKids').value || 0);
-            document.getElementById('kidAgesWrap').style.display = parseInt(document.getElementById('bKids').value) > 0 ? 'block' : 'none';
-            document.getElementById('alertGuestCount').innerText = total;
-
-            let showA = false;
-            document.getElementById('roomOptions').innerHTML = activeProp.rooms.map((r, i) => {
-                const over = total > r.capacity;
-                if(over) showA = true;
-                return `
-                    <div class="room-card ${over ? 'disabled' : ''}" id="rc-${i}" onclick="${over ? `alert('Capacity Exceeded')` : `setRoom(${r.price}, 'rc-${i}')`}">
-                        <div class="flex justify-between items-center">
-                            <div><p class="font-bold text-sm uppercase">${r.name}</p><p class="text-[9px] text-gray-500 uppercase">Max ${r.capacity} Guests | ${r.features}</p></div>
-                            <p class="text-xl font-black">R${r.price.toLocaleString()}</p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('capacityAlert').style.display = showA ? 'block' : 'none';
-            calculateTotal();
         }
 
         function setRoom(price, id) {
@@ -239,8 +270,8 @@
         }
 
         function calculateTotal() {
-            const cin = new Date(document.getElementById('mCheckIn').value);
-            const cout = new Date(document.getElementById('mCheckOut').value);
+            const cin = new Date(document.getElementById('heroCheckIn').value);
+            const cout = new Date(document.getElementById('heroCheckOut').value);
             if(cin && cout && cout > cin && selectedPrice > 0) {
                 const nights = (cout - cin) / 86400000;
                 document.getElementById('mTotal').innerText = "R" + (nights * selectedPrice).toLocaleString();
@@ -248,13 +279,16 @@
         }
 
         function executeFilter() {
-            const maxP = parseInt(document.getElementById('heroPrice').value);
             const area = document.getElementById('heroArea').value;
-            render(data.filter(p => (area === 'all' || p.area === area) && p.rooms.some(r => r.price <= maxP)));
+            const filtered = data.filter(p => (area === 'all' || p.area === area));
+            render(filtered);
             document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        function closeModal() { 
+            document.getElementById('modal').classList.add('hidden'); 
+            document.body.style.overflow = 'auto'; 
+        }
         
         render(data);
     </script>
